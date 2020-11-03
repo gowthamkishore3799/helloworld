@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="tpicker.css">
+  <script type="text/javascript" src="tpicker.js"></script>
+</head>
+
+<body> <div class="row">
+
+  <div style="margin:100px;float:left;">
+
+      <input id="timepkr" style="width:200px;float:left;" class="form-control" placeholder="HH:MM" />
+      <button class="btn btn-primary" onclick="showpickers('timepkr',24)" style="width:50px;float:left;"><i class="fa fa-clock-o"></i><br/>
+       
+
+    </div>
+   
+      
+   
+    <script type='text/javascript'>
+    
+       $(document).ready(function () {
+        
+        $("#datesubmit").on("click", function () {
+          var result=document.getElementById("timepkr").value;
+          console.log('#timepkr')
+          console.log(timepkr)
+            // const selecteddate = $("#datetimepicker4").data().date;
+            console.log('sending event', result);
+            window.parent.postMessage(JSON.stringify({
+                event_code: 'ym-client-event', data: {
+                    event: {
+                        code: "Date",
+                        data: {
+                            selectedDate: result
+                        }
+                    }
+                }
+            }), '*');
+            $('#datesubmit').attr('disabled', 'disabled');
+            $('#datesubmit').fadeTo("slow", 0.15, function () {
+                $(this).find(':input').attr('disabled', 'disabled');
+                $(this).find('label').css('cursor', 'default');
+                $('#add').append('Submitted');
+            });
+        })
+    })
+</script>
+<div class="timepicker"></div>  <!--Important to add and keep it seprate to the end-->
+<div class="modal-footer">
+                    <center>
+                        <button type="button" id="datesubmit" class="btn pmd-ripple-effect btn-primary" >
+                            Select
+                        </button>
+                    </center>
+                </div>
+
+</div>
+
+
+</body>
+</html>
